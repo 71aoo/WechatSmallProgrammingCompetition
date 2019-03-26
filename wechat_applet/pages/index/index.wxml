@@ -1,0 +1,14 @@
+
+<map id="map4select"
+longitude='{{longitude}}' latitude='{{latitude}}'
+markers="{{markers}}"
+bindmarkertap='sortPage'
+style="width:100%;height:{{map_height}}rpx"
+enable-3D
+ >
+</map>
+<button bindtap='sortPage'>1232</button>
+
+
+
+
