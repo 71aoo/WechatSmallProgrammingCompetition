@@ -1,0 +1,4 @@
+<view bindtap="switchCity">{{address}}</view>
+<!-- <button class="btn" type="primary" bindtap="scity">
+ 123   
+</button> -->
