@@ -1,0 +1,14 @@
+<!-- (size * stars.length + (size/2) * 4 + 20 )这里的话，是在可以点击的时候，加上了好评的字体的长度 -->
+<view class='starsBox' style='width:{{isClick?(size * stars.length + (size/2) * 4 + 20 ):(size * stars.length)}}rpx;height:{{size}}rpx;'>
+  <view class='stars' style='width:{{size * stars.length}}rpx;height:{{size}}rpx;'>
+    <block wx:for="{{stars}}" wx:key="{{index}}">
+      <image src="/images/{{item == 0 ? 'grayStar':item}}.png" style='width:{{size}}rpx;height:{{size}}rpx;' data-index="{{index}}" catchtap="computeScore"></image>
+    </block>
+  </view>
+  <view wx:if="{{isClick}}" class='text' style='font-size:{{size/2}}rpx;'>
+    <text wx:if="{{value=='0'}}" class='pointText'>暂无评分</text>
+    <text wx:elif="{{value=='1'}}" class='pointText'>差评</text>
+    <text wx:elif="{{value<'4'}}" class='pointText'>中评</text>
+    <text wx:else class='pointText'>好评</text>
+  </view>
+</view>

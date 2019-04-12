@@ -1,0 +1,20 @@
+.starsBox{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.stars{
+  width: 150rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.stars image{
+  width: 30rpx;
+  height: 30rpx;
+}
+.text{
+  color: #ccc;
+  margin-left: 20rpx;
+}

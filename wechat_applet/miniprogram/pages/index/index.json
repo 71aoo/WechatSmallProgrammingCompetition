@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "score": "../../component/rating/rating"
+  }
+  
+}
