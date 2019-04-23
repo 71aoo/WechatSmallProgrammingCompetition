@@ -3,12 +3,14 @@ var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 var qqmapsdk = new QQMapWX({
   key: '5LYBZ-QC53D-NAA4G-HJN4A-V26MZ-OEB7H'//申请的开发者秘钥key
 });
+var app = getApp();
+const daa = 0;
 
 Page
 ({
   data: 
   {
-    //map_width: 100%
+    stars: [],
     map_height:900,
     longitude: 103.92377,
     latitude:30.57447,
@@ -23,21 +25,25 @@ Page
       height: 50,
       title:"123",
       address:"123",
-      dis:"123"
-
+      dis:"123",
+      stars:[]
+ 
     }],
     shopGrade:0,
     shopGrade1: 4.6,
-    id:1,
-    num:'',
+    averge:[{
+      id:1,
+      score:0
+    }],
+    id:"", //每次点击弹窗时地址的id，地址id来自地图自带
     one:0 
     
   }
   //show current position
-  , onLoad: function (res) 
+  , onLoad: function (_res) 
   {
       var that = this;
-  
+      this.showStar(1); //传入星星参数
   
       wx.getLocation  //获得当前位置
       ({
@@ -57,12 +63,18 @@ Page
                   latitude:dis.latitude,
                   success:function(res)
                   { 
-                    var mar = [];                    
+                    var mar = [];
+                    var sum = 0;   
+                    that.checkDatabases(res)                 
                     for(var i = 0 ; i < res.data.length; i++)
                     {
                       
-                      var dist = that.getDistance(dis.latitude,dis.longitude,res.data[i].location.lat,res.data[i].location.lng)
-                      // console.log(res.data.length)
+                      var dist = that.getDistance(dis.latitude,dis.longitude,res.data[i].location.lat,res.data[i].location.lng);                     
+                      
+                      
+                    
+                      
+                      
                       mar.push
                       ({
                         
@@ -75,44 +87,24 @@ Page
                           width:20,
                           height:20,
                           address:res.data[i].address,
-                          distance: dist.toFixed(2) * 1000
-                        
+                          distance: dist.toFixed(2) * 1000,
+                          
                           
                         }),
                         that.setData
                         ({
-                        markers:mar
-                        })
-                        
-                      
-                      
-                     
-                                    
-                    }
-                   
-                  
-                    
-                    
+                          markers:mar
+                        }) 
+                                                           
+                    }                                                                             
                   },
-                  fail:function(res)
+                  fail:function(_res)
                   {
                     console.log('地图错误，或请授权获取位置')
-
-                  }
-                 
-                    
-                    
-              })
-              
-              
-             
+                  }                                                       
+              })                                       
           }
-        })
-       
-       
-        
-     
-
+        })                        
   },
   getDistance:function(lat1, lng1, lat2, lng2) //计算当前位置到目的地距离
     {
@@ -132,95 +124,84 @@ Page
         shopGrade: score
       })
     },
-    submit: function (res)  //提交分数
+    /* 先查询数据是否有记录到这个wc的评分
+       如果有就计算评分平均分，并添加最新评分
+       没有就重新创建到数据库 
+    */
+    submit: function (_res)  //提交分数
     {
-      // console.log(this.data.id)
+      var that = this
+      var curr_socre = Number(this.data.shopGrade) //用户评分值
+      // console.log(this.data.shopGrade)
       wx.cloud.init
       ({
         env: 'wc-score',
-        traceUser: false
+        
 
       });
       const db = wx.cloud.database();
       db.collection('city').where
       ({
-          wc_id: this.data.id
+          wc_id:this.data.id
       })
         .get
         ({
           success(ds) 
           {
             
-            var sum = 0;
+            var sum = 0; //总分
+            
             console.log(ds)
-            // for (var i = 0; i < ds.data.length; i++) 
-            // {
-            //   // console.log(ds.data[i].score)
-            //   sum += Number(ds.data[i].score)
+            for (var i = 0; i < ds.data.length; i++) 
+            {
+              // console.log(ds.data[i].score)
+              sum += Number(ds.data[i].score)
 
-            // }
-
+            }
+            sum += curr_socre
+            sum = sum / (ds.data.length + 1)
             // console.log(sum)
-            // db.collection('city').add
-            // ({
-            //   // data 传入需要局部更新的数据
-            //   data: 
-            //   {
-            //     // 表示将 done 字段置为 true
-            //     s_sum:sum,
-            //     score: this.data.shopGrade,
-            //     wc_id: this.data.id
-            //   },
-            //   success(e) 
-            //   {
-            //     // console.log(e)
-            //   }
-              
-            // })
-            this.setData({
-                num:'adadass'
-              })
+
+            // that.setData({
+            //   averge: Number(sum)
+            // })                                     
           }
-          
+                                   
         })
-        if(this.data.num == 0)
-        {
-          
-          // db.collection('city').add
-          //   ({
-          //     // data 传入需要局部更新的数据
-          //     data:
-          //     {
-          //       // 表示将 done 字段置为 true
-          //       s_sum: this.data.shopGrade,
-          //       score: this.data.shopGrade,
-          //       wc_id: this.data.id
-          //     },
-          //     success(e) 
-          //     {
-          //       // console.log(e)
-          //     }
-            // })
+        db.collection('city').add
+        ({
+          // data 传入需要局部更新的数据
+          data: 
+          {
+            score: this.data.shopGrade,
+            wc_id: this.data.id
+          },
+          success(_e) 
+          {
+            // console.log(e)
+            
+          }
+        })
 
-
-        }
-      // console.log(this.data.shopGrade);
-      // console.log(this.data.num);
       this.hideModal();
       this.showdata();
+          
     },
+        
+          
+    
     //点击我显示底部弹出框
     clickme: function (a) {
       // console.log(a.target.id);
       this.showModal();
       this.setData({
-        id:a.target.id
+        id:String(a.target.id)
       })
-        // console.log(this.data.id)
+        
     },
     showdata:function()
     {
-      console.log(this.data.num)
+      // console.log(this.data.num)
     },
 
     //显示对话框
@@ -264,8 +245,194 @@ Page
           showModalStatus: false
         })
       }.bind(this), 200)
+    }, 
+    showStar: function (num)
+    {
+      var that = this;
+      var renderData = {
+        stars: that.starCount(num)
+      };
+      that.setData(renderData)
+
     },
+    starCount: function (originStars) 
+    {
+      //计算星星显示需要的数据，用数组stars存储五个值，分别对应每个位置的星星是全星、半星还是空星
+      var starNum = originStars * 10 / 10, stars = [], i = 0;
+      do {
+        if (starNum >= 1) {
+          stars[i] = 'full';
+        } else if (starNum >= 0.5) {
+          stars[i] = 'half';
+        } else {
+          stars[i] = 'no';
+        }
+        starNum--;
+        i++;
+      } while (i < 5)
+      return stars;
+    },
+    // checkDatabases:function(addId)
+    // {
+    //   var that = this
+    //   var searchId = String(addId)
+      
+      
+    //   wx.cloud.init
+    //   ({
+    //     env: 'wc-score',
+        
+
+    //   });
+    //   const db = wx.cloud.database();
+      
+    //   db.collection('city').where
+    //   ({
+    //       wc_id:searchId
+    //   })
+    //     .get
+    //     ({
+    //       success(dds) 
+    //       {
+            
+    //         var sum = 0;//总分
+            
+    //         if(dds.data.length != 0)
+    //         {
+              
+    //           for (var i = 0; i < dds.data.length; i++) 
+    //           {
+                
+    //             // console.log(ds.data[i].score)
+    //             sum += Number(dds.data[i].score)
+  
+    //           }
+              
+    //           sum = sum / Number(dds.data.length)
+              
+
+    //         } 
+            
+    //         that.setData
+    //           ({
+    //             averge :  Number(sum)
+    //           })
+            
+           
+            
+                           
+            
+
+    //       }
+          
+    //     })
+        
+        
+    //     // return that.data.averge
+    // }
+    checkDatabases:function(res)
+    {
+      var that = this;
+      
+      var a =  new Promise(function (resolve, reject)
+      {
+        
+        
+        
+        
+        for(var i = 0 ; i < res.data.length; i++)
+        {
+          
+          wx.cloud.init
+          ({
+          env: 'wc-score',
+          
+
+          });
+          const db = wx.cloud.database();
+          // console.log(res.data[i].id)
+          db.collection('city').where
+          ({
+            wc_id:res.data[i].id
+          })
+          .get
+          ({
+            success(dds) 
+            {
+               
+              var sum = 0;//总分
+              // var bb = [];
+              // console.log(dds)
+              if(dds.data.length != 0)
+              {
+               
+                for (var j = 0; j < dds.data.length; j++) 
+                {
+                  
+                  // console.log(ds.data[i].score)
+                  sum += Number(dds.data[j].score)
     
+                }
+                
+                sum = sum / Number(dds.data.length)                                                             
+              }
+              
+              var renderData = 
+              {
+                stars: that.starCount(num)
+              };       
+              that.setData
+              ({
+                renderData
+              })  
+              
+              
+            }
+            
+          })
+
+
+        }
+        
+              // mar.push
+              // ({
+                
+                
+              //     title: res.data[i].title,
+              //     id: res.data[i].id,
+              //     latitude: res.data[i].location.lat,
+              //     longitude: res.data[i].location.lng,
+              //     iconPath:"../images/locat.png",
+              //     width:20,
+              //     height:20,
+              //     address:res.data[i].address,
+              //     distance: dist.toFixed(2) * 1000,
+              //     statrs : that.starCount(sum)
+                  
+              //   }),
+                
+              
+              
+
+              // resolve(that.data)
+              // return that.data.averge
+              
+            
+              
+                            
+              
+
+           
+          
+      })
+      // .then(function (res){
+      //   console.log(res.averge)
+        
+      // })
+      // console.log(a)
+      // console.log(that.data.averge)
+        return a;
+    }
 
 
 })

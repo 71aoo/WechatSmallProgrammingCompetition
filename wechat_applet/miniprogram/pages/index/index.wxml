@@ -12,13 +12,20 @@ scale='15'
 <!-- 显示厕所位置列表 -->
 <view>
 <scroll-view scroll-y="true" scroll-x="true" style="width: 100%;height:{{scroll_height}}rpx;">
-<view wx:for="{{markers}}" wx:for-index="index" wx:for-item="markers">
+<view wx:for="{{markers}}" wx:for-index="index" wx:for-item="markers" wx:key="id">
 <view bindtap="clickme" id="{{markers.id}}">{{markers.title}}</view>  
 <!-- <view >{{markers.title}}</view>  -->
 <!-- 厕所名字 -->
 <!-- <view>{{markers.address}}</view> -->
+<!-- 显示米数 -->
 <view>步行{{markers.distance}}m</view>
-<!-- 距离 -->
+<!-- 显示星级评分 -->
+<view class="stars">
+  <block wx:for="{{stars}}" wx:for-item="item" wx:key>
+    <image src="../images/{{item}}-star.png" class="star"></image>
+  </block>
+</view>
+
 </view>  
 </scroll-view>
 </view>

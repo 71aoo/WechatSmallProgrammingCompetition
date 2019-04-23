@@ -11,7 +11,8 @@ App({
   {
     all_city: [],
     globalData: {
-      defaultCity: '成都市'
+      defaultCity: '成都市',
+      sum:0
 
     }
 
