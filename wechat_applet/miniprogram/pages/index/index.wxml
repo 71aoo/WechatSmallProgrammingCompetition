@@ -1,18 +1,15 @@
 
-<map id="mymap"
-longitude='{{longitude}}' latitude='{{latitude}}'
-markers="{{markers}}"
-
+<map id="mymap" longitude='{{longitude}}' latitude='{{latitude}}' markers="{{markers}}"
 style="width:100%;height:{{map_height}}rpx"
 scale='15'
- >
+>
 </map>
-
 
 <!-- 显示厕所位置列表 -->
 <view>
 <scroll-view scroll-y="true" scroll-x="true" style="width: 100%;height:{{scroll_height}}rpx;">
-<view wx:for="{{markers}}" wx:for-index="index" wx:for-item="markers" wx:key="id">
+<view wx:for="{{markers}}" wx:for-index="index" wx:for-item="markers" wx:key="id" wx:if="{{index > 0}}">
+
 <view bindtap="clickme" id="{{markers.id}}">{{markers.title}}</view>  
 <!-- <view >{{markers.title}}</view>  -->
 <!-- 厕所名字 -->
@@ -21,16 +18,16 @@ scale='15'
 <view>步行{{markers.distance}}m</view>
 <!-- 显示星级评分 -->
 <view class="stars">
-  <block wx:for="{{stars}}" wx:for-item="item" wx:key>
+  <block wx:for="{{markers.stars}}" wx:for-item="item" wx:key>
     <image src="../images/{{item}}-star.png" class="star"></image>
   </block>
 </view>
 
-</view>  
+</view>
 </scroll-view>
 </view>
 
-<!-- <button bindtap='sortPage'>1232</button> -->
+
 
 <!-- 评分界面 -->
 <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
@@ -42,7 +39,7 @@ scale='15'
     </view>
     
     <button bindtap='submit'>
-    点击提交
+    提交
     </button>
 </view>
   </view>
