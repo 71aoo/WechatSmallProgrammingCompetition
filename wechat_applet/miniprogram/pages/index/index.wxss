@@ -45,7 +45,104 @@
 }
 .star{
   width:20px;
-  height:20px;
-  margin: 20px;
+  margin-bottom: 20rpx;
+  height: 40rpx;
   vertical-align: top;
+}
+
+.wcitem{
+  /* 文本框位置 */
+  /* position:fixed;
+  top:200rpx;
+  left:350rpx; */
+  display: flex;
+  border-bottom: 0rpx solid rgb(227, 229, 235) ;
+  border-top:1rpx solid rgb(227, 229, 235);
+  /* border-color:white; */
+  /* 字体颜色 */
+  color:#757B8A;
+  /* 字体大小 */
+  font-size: 40rpx;
+  /* 字体粗细 */
+  font-weight: normal;
+  /* 里边框直径 */
+  /* border: 0.5rpx solid rgb(227, 229, 235); */
+  /* 外边框设置 */
+  /* outline:2px solid rgb(50, 66, 136);
+  
+  outline-offset: 2rpx; */
+  /* height:100%; */
+ /* 字体 */
+  font-family: SimSun;
+  /* 文本填充度 */
+  width:100%;
+  /* 文本框高度 大小调整*/
+  height: 100rpx;
+  /* padding: 1rpx; */
+  /* 文本框阴影色 */
+  box-shadow:  rgb(36, 34, 161);
+  /* 文本框背景色 */
+  /* background-color:rgb(71, 132, 212); */
+  /* 文本的位置 */
+  text-align: left;
+  /* 设置圆角弧度 */
+  /* border-top-left-radius:30rpx; 
+  border-top-right-radius:30rpx; 
+  border-bottom-left-radius:30rpx; 
+  border-bottom-right-radius:30rpx; */
+  /*  */
+   /* 设置不同厕所的信息距离 */
+  /* margin: 3rpx 1rpx 1rpx 1rpx00000000; */
+  /*  */
+  /* 大框的长度 */
+  
+ 
+  
+}
+.name{
+  width:80%;
+  height: 50%;
+  display: inline-block;
+  font-size: 40rpx;
+  background-color:white;
+  /* padding:80rpx; */
+  /* 文字行距离上边框或者上个框架的距离 */
+  line-height-step: 10rpx;
+ 
+  
+}
+.wb{
+  height: 40rpx;
+  width: 40rpx;
+  margin-top: 30rpx;
+
+}
+.distance{
+  font-size: 40rpx;
+  font-family: SimSun;
+  background-color:white;
+  /* padding: 36rpx; */
+  height:100rpx;
+  width:20%;
+  text-align: center;
+  line-height-step: rpx;
+ 
+ /* line-height: 10rpx; */
+}
+/* 进度条粗细 */
+::-webkit-scrollbar{
+width: 0;
+height: 0;
+color: transparent;
+}
+.jt{
+  height: 40rpx;
+  width: 40rpx;
+  margin-left: 30rpx;
+  margin-bottom: 10rpx;  
+  margin-right: 30rpx;
+  
+  /* height: auto;
+  max-width:100%; */
+  align-items: center;
 }

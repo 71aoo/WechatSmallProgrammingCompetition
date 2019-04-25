@@ -1,47 +1,47 @@
-
-<map id="mymap" longitude='{{longitude}}' latitude='{{latitude}}' markers="{{markers}}"
-style="width:100%;height:{{map_height}}rpx"
-scale='15'
->
+<map id="mymap" longitude='{{longitude}}' latitude='{{latitude}}' markers="{{markers}}" style="width:100%;height:{{map_height}}rpx" scale='15'>
 </map>
 
 <!-- 显示厕所位置列表 -->
 <view>
-<scroll-view scroll-y="true" scroll-x="true" style="width: 100%;height:{{scroll_height}}rpx;">
-<view wx:for="{{markers}}" wx:for-index="index" wx:for-item="markers" wx:key="id" wx:if="{{index > 0}}">
+  <scroll-view scroll-y="true" scroll-x="true" style="width: 100%;height:{{scroll_height}}rpx;">
+    <view class="wcitem" wx:for="{{markers}}" wx:for-index="index" wx:for-item="markers" wx:key="id" wx:if="{{index > 0}}">
+      <image class='wb' src='../../local.png'></image>
+      <!-- yy -->
+      <view class="name" bindtap="clickme" id="{{markers.id}}">{{markers.title}}
+        <!-- 显示星级评分 -->
+        <view class="stars">
+          <block wx:for="{{markers.stars}}" wx:for-item="item" wx:key>
+            <image src="../images/{{item}}-star.png" class="star"></image>
+          </block>
+        </view>
+      </view>
+      <!-- <view >{{markers.title}}</view>  -->
+      <!-- 厕所名字 -->
+      <!-- <view>{{markers.address}}</view> -->
+      <!-- 显示米数 -->
+      <!-- yy -->
+      <view class='distance'>
+        <image class='jt' src='../../jt.png'></image>{{markers.distance}}m</view>
 
-<view bindtap="clickme" id="{{markers.id}}">{{markers.title}}</view>  
-<!-- <view >{{markers.title}}</view>  -->
-<!-- 厕所名字 -->
-<!-- <view>{{markers.address}}</view> -->
-<!-- 显示米数 -->
-<view>步行{{markers.distance}}m</view>
-<!-- 显示星级评分 -->
-<view class="stars">
-  <block wx:for="{{markers.stars}}" wx:for-item="item" wx:key>
-    <image src="../images/{{item}}-star.png" class="star"></image>
-  </block>
-</view>
 
-</view>
-</scroll-view>
+
+    </view>
+  </scroll-view>
 </view>
 
 
 
 <!-- 评分界面 -->
 <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
-  <!--弹出框  -->
-  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+<!--弹出框  -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
   <view class="score">
     <view class="scoreItem">
-        <score value="{{shopGrade}}" size="100" isClick="true" bindcompute="computeGrade" />
+      <score value="{{shopGrade}}" size="100" isClick="true" bindcompute="computeGrade" />
     </view>
-    
+
     <button bindtap='submit'>
-    提交
+      提交
     </button>
-</view>
   </view>
-
-
+</view>
