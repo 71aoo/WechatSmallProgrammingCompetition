@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/mine/mine",
     "pages/logs/logs",
+    "pages/road/road",
     "libs/citySelector/switchcity/switchcity"
   ],
   "window": {
@@ -11,6 +12,19 @@
     "navigationBarTitleText": "厕所评分",
     "navigationBarTextStyle": "black"
   },
+  
+  "plugins": {
+  
+    "myPlugin": {
+
+      "version": "1.0.6",
+
+      "provider": "wx5bc2ac602a747594"
+
+    }
+
+  }
+,
   "tabBar": {
     "list": [
       {

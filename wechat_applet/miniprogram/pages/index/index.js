@@ -258,5 +258,17 @@ Page
         i++;
       } while (i < 5)
       return stars;
+    },
+    //导航
+    findRoad:function(e)
+    {
+      // console.log('1',e.currentTarget.dataset.id)
+      // console.log('2',e.target.dataset.id)
+      var that = this
+      wx.navigateTo({
+        url: '/pages/road/road?longitude='+ e.currentTarget.dataset.id.longitude +'&latitude='+ e.currentTarget.dataset.id.latitude + '&title=' + e.currentTarget.dataset.id.title 
+      })
+    
     }
+ 
 })
