@@ -8,10 +8,10 @@ Page
 ({
   data: 
   {
-    map_height:900,
+    map_height:700,
     longitude: 103.92377,
     latitude:30.57447,
-    scroll_height:300,
+    scroll_height:500,
     markers:
     [{
       // id:0,
@@ -49,7 +49,7 @@ Page
            ({
             latitude: dis.latitude,
             longitude: dis.longitude,
-            iconPath:"../images/sign.png",  //自己位置图片
+            iconPath:"../../greenlocal.png",  //自己位置图片
 
            })
             that.setData

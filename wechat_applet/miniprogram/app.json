@@ -1,14 +1,14 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/sortPage/sort",
+    "pages/mine/mine",
     "pages/logs/logs",
     "libs/citySelector/switchcity/switchcity"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "厕所评分",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
@@ -16,14 +16,14 @@
       {
         "pagePath": "pages/index/index",
         "text": "首页",
-        "iconPath": "pages/images/locat.png",
-        "selectedIconPath": "pages/images/sign.png"
+        "iconPath": "local.png",
+        "selectedIconPath": "full.png"
       },
       {
-        "pagePath": "pages/sortPage/sort",
+        "pagePath": "pages/mine/mine",
         "text": "排行榜",
-        "iconPath": "pages/images/locat.png",
-        "selectedIconPath": "pages/images/sign.png"
+        "iconPath": "mine.png",
+        "selectedIconPath": "minefull.png"
       }
     ]
   }
