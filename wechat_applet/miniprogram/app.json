@@ -21,7 +21,7 @@
       },
       {
         "pagePath": "pages/mine/mine",
-        "text": "排行榜",
+        "text": "我的",
         "iconPath": "mine.png",
         "selectedIconPath": "minefull.png"
       }
