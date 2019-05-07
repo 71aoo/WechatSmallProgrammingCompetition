@@ -39,8 +39,8 @@
     <view class="scoreItem">
       <score value="{{shopGrade}}" size="100" isClick="true" bindcompute="computeGrade" />
     </view>
-
-    <button bindtap='submit'>
+    <view class='tips'>评价一下厕所吧~</view>
+    <button bindtap='submit' class='submit1'>
       提交
     </button>
   </view>

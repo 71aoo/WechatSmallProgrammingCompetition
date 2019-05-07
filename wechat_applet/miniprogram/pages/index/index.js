@@ -49,7 +49,7 @@ Page
            ({
             latitude: dis.latitude,
             longitude: dis.longitude,
-            iconPath:"../../greenlocal.png",  //自己位置图片
+            iconPath:"../../sign.png",  //自己位置图片
 
            })
             that.setData

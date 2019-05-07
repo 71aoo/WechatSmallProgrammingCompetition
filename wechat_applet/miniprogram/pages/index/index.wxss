@@ -5,6 +5,7 @@
   align-items: center;
 }
 
+
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;
@@ -15,7 +16,26 @@
 .userinfo-nickname {
   color: #aaa;
 }
+/* 星星界面 */
+.scoreItem{
+height:170rpx;
 
+}
+/* 给出你心中的评分吧~ */
+.tips{
+  text-align: center;
+  color: #aaa;
+  height: 130rpx;
+  
+}
+/* 按钮内字体 和按钮的调整*/
+.submit1{
+  color:black;
+  font-size: 40rpx;
+  font-family: SimSun;
+  height:100rpx;
+  width: 20%;
+}
 .usermotto {
   margin-top: 200px;
 }
@@ -30,15 +50,17 @@
   overflow: hidden;
   z-index: 1000;
   color: #fff;
+  background-color: blue;
 }
 /*对话框 */
 .commodity_attr_box {
-  height: 500rpx;  /*弹窗高度*/
+  height: 400rpx;  /*弹窗高度*/
   width: 100%;
   overflow: hidden;
   position: fixed;
   bottom: 0;
   left: 0;
+  
   z-index: 2000;
   background: #fff;
   padding-top: 20rpx;
