@@ -5,7 +5,6 @@
   "navigationBarTitleText": "厕所定位",
   "backgroundTextStyle": "light",
   "navigationBarTextStyle": "white",
-  "navigationBarBackgroundColor": "#06c",
-  "navigation": "#FFFFFF",
-  "color": "#000000"
+  "navigationBarBackgroundColor": "#06c"
+  
 }

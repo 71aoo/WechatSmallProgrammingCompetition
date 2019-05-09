@@ -8,10 +8,10 @@ Page
 ({
   data: 
   {
-    map_height:700,
+    map_height:795,
     longitude: 103.92377,
     latitude:30.57447,
-    scroll_height:500,
+    scroll_height:405,
     markers:
     [{
       // id:0,

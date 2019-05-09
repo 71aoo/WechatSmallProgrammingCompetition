@@ -36,10 +36,11 @@
 <!--弹出框  -->
 <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
   <view class="score">
+  <view class='tips'>给厕所评个分吧~</view>
     <view class="scoreItem">
-      <score value="{{shopGrade}}" size="100" isClick="true" bindcompute="computeGrade" />
+      <score value="{{shopGrade}}" size="80" isClick="true" bindcompute="computeGrade" />
     </view>
-    <view class='tips'>评价一下厕所吧~</view>
+    
     <button bindtap='submit' class='submit1'>
       提交
     </button>

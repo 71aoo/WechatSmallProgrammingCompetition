@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/mine/mine",
+    
     "pages/logs/logs",
     "libs/citySelector/switchcity/switchcity"
   ],
@@ -10,21 +10,6 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "厕所评分",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "local.png",
-        "selectedIconPath": "full.png"
-      },
-      {
-        "pagePath": "pages/mine/mine",
-        "text": "我的",
-        "iconPath": "mine.png",
-        "selectedIconPath": "minefull.png"
-      }
-    ]
   }
 }
+  
