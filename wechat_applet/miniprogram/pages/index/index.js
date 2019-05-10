@@ -5,144 +5,134 @@ var qqmapsdk = new QQMapWX({
 });
 
 Page
-({
-  data: 
-  {
-    map_height:795,
-    longitude: 103.92377,
-    latitude:30.57447,
-    scroll_height:405,
-    markers:
-    [{
-      // id:0,
-      // iconPath:"../images/sign.png",
-      // latitude: 30.57447,
-      // longtitude: 103.92377,
-      // width: 50,
-      // height: 50,
-      // title:"123",
-      // address:"123",
-      // dis:"123",
-      // stars:[]
-    }],
-    shopGrade:0,
-    shopGrade1: 4.6,
-    averge:[{
-      id:1,
-      score:0
-    }],
-    id:0 //index下标    
-  }
-  //show current position
-  , onLoad: function (_res) 
-  {
+  ({
+    data:
+    {
+      map_height: 795,
+      longitude: 103.92377,
+      latitude: 30.57447,
+      scroll_height: 405,
+      markers:
+        [{
+          // id:0,
+          // iconPath:"../images/sign.png",
+          // latitude: 30.57447,
+          // longtitude: 103.92377,
+          // width: 50,
+          // height: 50,
+          // title:"123",
+          // address:"123",
+          // dis:"123",
+          // stars:[]
+        }],
+      shopGrade: 0,
+      shopGrade1: 4.6,
+      averge: [{
+        id: 1,
+        score: 0
+      }],
+      id: 0 //index下标    
+    }
+    //show current position
+    , onLoad: function (_res) {
       var that = this;
       //获得当前位置
-      wx.getLocation  
-      ({         
-          success: function (dis)
-         {    
-           var mar = [];
-           console.log(that)
+      wx.getLocation
+        ({
+          success: function (dis) {
+            var mar = [];
+            console.log(that)
 
-           mar.push
-           ({
-            latitude: dis.latitude,
-            longitude: dis.longitude,
-            iconPath:"../../sign.png",  //自己位置图片
+            mar.push
+              ({
+                latitude: dis.latitude,
+                longitude: dis.longitude,
+                iconPath: "../../sign.png",  //自己位置图片
 
-           })
+              })
             that.setData
-            ({
-              markers:mar
-            })   
+              ({
+                markers: mar
+              })
 
           }
-      })
-  
+        })
+
       wx.getLocation  //获得当前位置
-      ({         
-          success: function (dis)
-         {    
-              that.setData
-                ({
-                  longitude: dis.longitude,
-                  latitude: dis.latitude
-                })      
-              // console.log(res)
-              qqmapsdk.search  //调用腾讯地图api以当前位置为中心搜索厕所
+        ({
+          success: function (dis) {
+            that.setData
               ({
-                  keyword:'厕所',
-                  longitude:dis.longitude,
-                  latitude:dis.latitude,
-                  success:function(res)
-                  { 
-                    var mar = [];
-                    var sum = 0; 
-                    for(var i = 0 ; i < res.data.length; i++)
-                    {
-                      //查询每一个厕所在数据库里的位置
-                      wx.cloud.init
+                longitude: dis.longitude,
+                latitude: dis.latitude
+              })
+            // console.log(res)
+            qqmapsdk.search  //调用腾讯地图api以当前位置为中心搜索厕所
+              ({
+                keyword: '厕所',
+                longitude: dis.longitude,
+                latitude: dis.latitude,
+                success: function (res) {
+                  var mar = [];
+                  var sum = 0;
+                  for (var i = 0; i < res.data.length; i++) {
+                    //查询每一个厕所在数据库里的位置
+                    wx.cloud.init
                       ({
                         env: 'wc-score',
                       });
-                      const db = wx.cloud.database();
-                    
-                      db.collection('city').where
+                    const db = wx.cloud.database();
+
+                    db.collection('city').where
                       ({
-                        wc_id:res.data[i].id
+                        wc_id: res.data[i].id
                       })
                       .get
-                        ({
-                          success(dds) 
-                          {  
-                             var mar=[];
-                             var index = that.data.id
-                             // dist 当前位置距离厕所的距离     
-                             var dist = that.getDistance(dis.latitude,dis.longitude,res.data[index].location.lat,res.data[index].location.lng);              
-                             var sum = 0   //评分平均分         
-                              if(dds.data.length != 0)
-                              {               
-                                for (var j = 0; j < dds.data.length; j++) 
-                                {                                   
-                                  sum += Number(dds.data[j].score)    
-                                }                
-                                sum = sum / Number(dds.data.length)                                                             
-                              }
-                              //  console.log(sum) 
-                              mar.push
-                              ({                                                                
-                                  title: res.data[index].title,
-                                  id: res.data[index].id,
-                                  latitude: res.data[index].location.lat,
-                                  longitude: res.data[index].location.lng,
-                                  iconPath:"../images/locat.png",
-                                  width:20,
-                                  height:20,
-                                  address:res.data[index].address,
-                                  distance: dist.toFixed(2) * 1000,
-                                  stars:that.starCount(sum)                                                                    
-                                })                                
-                                that.setData
-                                ({
-                                  markers:that.data.markers.concat(mar),
-                                  id:that.data.id + 1                            
-                                })                                                                                                                                                                                       
-                          } 
-                        })
-                    }                                                                                                    
-                  },
-                  fail:function(_res)
-                  {
-                    console.log('地图错误，或请授权获取位置')
-                  }                                                       
-              })                                       
+                      ({
+                        success(dds) {
+                          var mar = [];
+                          var index = that.data.id
+                          // dist 当前位置距离厕所的距离     
+                          var dist = that.getDistance(dis.latitude, dis.longitude, res.data[index].location.lat, res.data[index].location.lng);
+                          var sum = 0   //评分平均分         
+                          if (dds.data.length != 0) {
+                            for (var j = 0; j < dds.data.length; j++) {
+                              sum += Number(dds.data[j].score)
+                            }
+                            sum = sum / Number(dds.data.length)
+                          }
+                          //  console.log(sum) 
+                          mar.push
+                            ({
+                              title: res.data[index].title,
+                              id: res.data[index].id,
+                              latitude: res.data[index].location.lat,
+                              longitude: res.data[index].location.lng,
+                              iconPath: "../images/locat.png",
+                              width: 20,
+                              height: 20,
+                              address: res.data[index].address,
+                              distance: dist.toFixed(2) * 1000,
+                              stars: that.starCount(sum)
+                            })
+                          that.setData
+                            ({
+                              markers: that.data.markers.concat(mar),
+                              id: that.data.id + 1
+                            })
+                        }
+                      })
+                  }
+                },
+                fail: function (_res) {
+                  console.log('地图错误，或请授权获取位置')
+                }
+              })
           }
-        })                        
-  },
-  //计算当前位置到目的地距离
-  getDistance:function(lat1, lng1, lat2, lng2) 
-    {
+        })
+    },
+    //计算当前位置到目的地距离
+    getDistance: function (lat1, lng1, lat2, lng2) {
       // console.log(lat1, lng1, lat2, lng2)
       var radLat1 = lat1 * Math.PI / 180.0;
       var radLat2 = lat2 * Math.PI / 180.0;
@@ -160,45 +150,43 @@ Page
       })
     },
     //得到用户提交分数
-    submit: function (_res)  
-    {
+    submit: function (_res) {
       var that = this
       var curr_socre = Number(this.data.shopGrade) //用户评分值
       // console.log(this.data.shopGrade)
       wx.cloud.init
-      ({
-        env: 'wc-score',        
-      });
+        ({
+          env: 'wc-score',
+        });
       const db = wx.cloud.database();
       db.collection('city').add
-      ({
-        
-        // data 传入需要局部更新的数据
-        data: 
-        {
-          score: this.data.shopGrade,
-          wc_id: this.data.id
-        },
-        success(e) 
-        {
-          // console.log(that)
-          
-          
-        }
-      })
-      
+        ({
+
+          // data 传入需要局部更新的数据
+          data:
+          {
+            score: this.data.shopGrade,
+            wc_id: this.data.id
+          },
+          success(e) {
+            // console.log(that)
+
+
+          }
+        })
+
       this.hideModal();
-      this.showdata();
-      
-    }, 
+
+
+    },
     //点击我显示底部弹出框
     clickme: function (a) {
       // console.log(a.target.id);
       this.showModal();
       this.setData({
-        id:String(a.target.id)
+        id: String(a.target.id)
       })
-        
+
     },
     //显示对话框
     showModal: function () {
@@ -241,9 +229,8 @@ Page
           showModalStatus: false
         })
       }.bind(this), 200)
-    }, 
-    starCount: function (originStars) 
-    {
+    },
+    starCount: function (originStars) {
       //计算星星显示需要的数据，用数组stars存储五个值，分别对应每个位置的星星是全星、半星还是空星
       var starNum = originStars * 10 / 10, stars = [], i = 0;
       do {
@@ -259,4 +246,4 @@ Page
       } while (i < 5)
       return stars;
     }
-})
+  })
