@@ -1,0 +1,2 @@
+<!--pages/road/road.wxml-->
+<map-route route-info="{{routeInfo}}"></map-route>

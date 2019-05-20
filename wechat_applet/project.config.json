@@ -10,8 +10,9 @@
 		"autoAudits": false
 	},
 	"appid": "wx9a6859025ed4e28d",
-	"projectname": "wechat_applet",
+	"projectname": "DH",
 	"libVersion": "2.2.5",
+	"compileType": "miniprogram",
 	"condition": {
 		"search": {
 			"current": -1,

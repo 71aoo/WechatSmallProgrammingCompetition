@@ -20,7 +20,7 @@
       <!-- <view>{{markers.address}}</view> -->
       <!-- 显示米数 -->
       <!-- yy -->
-      <view class='distance'>
+      <view class='distance' data-id="{{markers}}" bindtap="findRoad">
         <image class='jt' src='../../jt.png'></image>{{markers.distance}}m</view>
 
 
